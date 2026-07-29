@@ -1,5 +1,11 @@
+import Grid from './components/Grid';
+
 function App() {
-  return <p className="text-4xl font-bold">Hello World</p>;
+  return (
+    <>
+      <Grid height={20} width={40} />
+    </>
+  );
 }
 
 export default App;
