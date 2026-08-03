@@ -1,14 +1,11 @@
 import type { CellType } from '../types/cellType';
+import type { Coordinates } from '../types/coordinates';
 
 interface CellProps {
   type: CellType;
-  coords: {
-    x: number;
-    y: number;
-  };
+  coords?: Coordinates;
 }
-const Cell: React.FC<CellProps> = ({ type, coords }) => {
-  console.log();
+const Cell: React.FC<CellProps> = ({ type }) => {
   const getBackgroundColorClassName = () => {
     switch (type) {
       case 'head':
@@ -24,10 +21,8 @@ const Cell: React.FC<CellProps> = ({ type, coords }) => {
   };
   return (
     <div
-      className={`size-10 text-xs flex flex-row justify-center items-center border rounded ${getBackgroundColorClassName()}`}
-    >
-      {coords.x} - {coords.y}
-    </div>
+      className={`size-6 text-xs flex flex-row justify-center items-center border rounded ${getBackgroundColorClassName()}`}
+    />
   );
 };
 
