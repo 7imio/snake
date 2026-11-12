@@ -1,9 +1,9 @@
-import Grid from './components/Grid';
+import Layout from './components/Layout';
 
 function App() {
   return (
     <>
-      <Grid height={35} width={70} />
+      <Layout />
     </>
   );
 }

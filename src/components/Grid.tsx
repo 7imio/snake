@@ -17,10 +17,10 @@ const Grid: React.FC<GridProps> = ({ height, width }) => {
       }}
     >
       {Array.from({ length: cellCount }).map((_, index) => {
-        const row = Math.floor(index / width);
-        const column = index % width;
+        const column = Math.floor(index / width);
+        const row = index % width;
 
-        return <Cell key={`${row}-${column}`} type="empty" coords={{ x: row + 1, y: column + 1 }} />;
+        return <Cell key={`${column}-${row}`} type="empty" coords={{ x: column, y: row }} />;
       })}
     </div>
   );
