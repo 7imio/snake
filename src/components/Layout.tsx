@@ -4,6 +4,7 @@ import { startGame, pauseGame, resumeGame, menu, GameState } from '../store/slic
 import type { RootState } from '../store/store';
 import { useEffect } from 'react';
 import Modal from './generic/Modal';
+import type { GridConfig } from '../types/GridConfiguration';
 
 const GameOverOverlay: React.FC = () => {
   const dispatch = useDispatch();
@@ -49,6 +50,11 @@ const PauseOverlay: React.FC = () => {
 
 const Layout: React.FC = () => {
   const { gameState } = useSelector((state: RootState) => state.game);
+
+  const config: GridConfig = {
+    gridWidth: 30,
+    gridHeight: 20,
+  };
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -81,7 +87,7 @@ const Layout: React.FC = () => {
 
       {renderOverlay()}
 
-      <Grid width={30} height={20} />
+      <Grid width={config.gridWidth} height={config.gridHeight} />
     </div>
   );
 };
