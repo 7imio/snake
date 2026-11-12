@@ -2,6 +2,7 @@ import type { InputController } from '../../input/InputController';
 import { InputDirection } from '../../input/inputDirections';
 import type { Coordinates } from '../../types/coordinates';
 import type { Snake } from '../../types/snake';
+import type { GridConfig } from '../../types/GridConfiguration';
 
 export enum TickEvent {
   Idle = 'IDLE',
@@ -21,9 +22,9 @@ export class SnakeEngine {
   private initialSegmentsCount: number = 3;
   private segmentsCount: number = this.initialSegmentsCount;
 
-  constructor(gridWidth: number, gridHeight: number, inputController: InputController, initialSegmentsCount?: number) {
-    this.gridWidth = gridWidth;
-    this.gridHeight = gridHeight;
+  constructor(config: GridConfig, inputController: InputController, initialSegmentsCount?: number) {
+    this.gridWidth = config.gridWidth;
+    this.gridHeight = config.gridHeight;
     this.inputController = inputController;
     if (initialSegmentsCount !== undefined) {
       this.initialSegmentsCount = initialSegmentsCount;
@@ -121,7 +122,7 @@ export class SnakeEngine {
     this.snake.head = nextHeadPosition;
   }
 
-  public growSnake() {
+  private growSnake() {
     this.segmentsCount++;
   }
 

@@ -1,11 +1,9 @@
 import type { Coordinates } from './coordinates';
 import type { Snake } from './snake';
+import type { GridConfig } from './GridConfiguration';
 
 export interface Game {
-  grid: {
-    width: number;
-    height: number;
-  };
+  grid: GridConfig;
   snake: Snake;
   food: Coordinates | null;
 }
