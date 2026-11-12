@@ -1,16 +1,10 @@
-export enum InputDirection {
-  Up,
-  Down,
-  Left,
-  Right,
-}
+import { InputDirection } from './inputDirections';
 
 export class InputController {
   private currentDirection: InputDirection | null = null;
   private directionBuffer: InputDirection[] = []; // only store 2 next directions at most (maxBufferSize)
   private readonly maxBufferSize: number = 2; // only store 2 next directions at most
   private active: boolean = false;
-
 
   /**
    * Initializes a new game with a starting direction.
@@ -31,7 +25,6 @@ export class InputController {
   public isActive(): boolean {
     return this.active;
   }
-
 
   /**
    * Adds a valid direction to the input buffer.
