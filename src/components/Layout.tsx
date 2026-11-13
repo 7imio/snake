@@ -5,6 +5,7 @@ import type { RootState } from '../store/store';
 import { useEffect } from 'react';
 import Modal from './generic/Modal';
 import type { GridConfig } from '../types/GridConfiguration';
+import Button from './generic/Button';
 
 const GameOverOverlay: React.FC = () => {
   const dispatch = useDispatch();
@@ -12,12 +13,8 @@ const GameOverOverlay: React.FC = () => {
   return (
     <Modal>
       <p>Game Over</p>
-      <button className="border-1 border-solid rounded" onClick={() => dispatch(menu())}>
-        Menu
-      </button>
-      <button className="border-1 border-solid rounded" onClick={() => dispatch(startGame())}>
-        Restart Game
-      </button>
+      <Button onClick={() => dispatch(menu())}>Menu</Button>
+      <Button onClick={() => dispatch(startGame())}>Restart Game</Button>
     </Modal>
   );
 };
@@ -27,9 +24,7 @@ const MenuOverlay: React.FC = () => {
   return (
     <Modal>
       <p>Menu</p>
-      <button className="border-1 border-solid rounded" onClick={() => dispatch(startGame())}>
-        Start Game
-      </button>
+      <Button onClick={() => dispatch(startGame())}>Start Game</Button>
     </Modal>
   );
 };
@@ -39,12 +34,8 @@ const PauseOverlay: React.FC = () => {
   return (
     <Modal>
       <p>Paused</p>
-      <button className="border-1 border-solid rounded" onClick={() => dispatch(resumeGame())}>
-        Resume Game
-      </button>
-      <button className="border-1 border-solid rounded" onClick={() => dispatch(menu())}>
-        Menu
-      </button>
+      <Button onClick={() => dispatch(resumeGame())}>Resume Game</Button>
+      <Button onClick={() => dispatch(menu())}>Menu</Button>
     </Modal>
   );
 };
@@ -78,12 +69,8 @@ const Layout: React.FC = () => {
   return (
     <div className="layout w-full h-full">
       <div className="gap-2 flex flex-wrap p-2">
-        <button className="border-1 border-solid rounded" onClick={() => dispatch(pauseGame())}>
-          Pause Game
-        </button>
-        <button className="border-1 border-solid rounded" onClick={() => dispatch(menu())}>
-          Menu
-        </button>
+        <Button onClick={() => dispatch(pauseGame())}>Pause Game</Button>
+        <Button onClick={() => dispatch(menu())}>Menu</Button>
       </div>
 
       {renderOverlay()}

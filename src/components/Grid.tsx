@@ -10,7 +10,7 @@ const Grid: React.FC<GridProps> = ({ height, width }) => {
 
   return (
     <div
-      className="grid w-fit gap-0.5 p-px"
+      className="grid w-fit gap-0 p-1"
       style={{
         gridTemplateColumns: `repeat(${width}, max-content)`,
         gridTemplateRows: `repeat(${height}, max-content)`,
@@ -20,7 +20,7 @@ const Grid: React.FC<GridProps> = ({ height, width }) => {
         const column = Math.floor(index / width);
         const row = index % width;
 
-        return <Cell key={`${column}-${row}`} type="empty" coords={{ x: row, y: column }} />;
+        return <Cell key={`${column}-${row}`} />;
       })}
     </div>
   );
