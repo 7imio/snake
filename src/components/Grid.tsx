@@ -20,7 +20,7 @@ const Grid: React.FC<GridProps> = ({ height, width }) => {
         const column = Math.floor(index / width);
         const row = index % width;
 
-        return <Cell key={`${column}-${row}`} type="empty" coords={{ x: column, y: row }} />;
+        return <Cell key={`${column}-${row}`} type="empty" coords={{ x: row, y: column }} />;
       })}
     </div>
   );
