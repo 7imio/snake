@@ -1,6 +1,6 @@
-import type { Coordinates } from "../../types/coordinates";
-import type { Snake } from "../../types/snake";
-import type { GridConfig } from "../../types/GridConfiguration";
+import type { Coordinates } from "../types/coordinates";
+import type { Snake } from "../types/snake";
+import type { GridConfig } from "../types/GridConfiguration";
 
 export class FoodManager {
   private gridWidth: number;

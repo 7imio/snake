@@ -1,8 +1,8 @@
-import type { InputController } from '../../input/InputController';
-import { InputDirection } from '../../input/inputDirections';
-import type { Coordinates } from '../../types/coordinates';
-import type { Snake } from '../../types/snake';
-import type { GridConfig } from '../../types/GridConfiguration';
+import type { InputController } from '../input/InputController';
+import { InputDirection } from '../input/inputDirections';
+import type { Coordinates } from '../types/coordinates';
+import type { Snake } from '../types/snake';
+import type { GridConfig } from '../types/GridConfiguration';
 
 export enum TickEvent {
   Idle = 'IDLE',
