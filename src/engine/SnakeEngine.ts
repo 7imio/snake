@@ -22,6 +22,8 @@ export class SnakeEngine {
   private initialSegmentsCount: number = 3;
   private segmentsCount: number = this.initialSegmentsCount;
 
+  private foodEaten: number = 0;
+
   constructor(config: GridConfig, inputController: InputController, initialSegmentsCount?: number) {
     this.gridWidth = config.gridWidth;
     this.gridHeight = config.gridHeight;
@@ -59,7 +61,7 @@ export class SnakeEngine {
     this.inputController.start(InputDirection.Right);
   }
 
-  public tick(food: Coordinates): TickEvent {
+  public tick(food: Coordinates | null): TickEvent {
     if (!this.snake.isAlive) {
       return TickEvent.Idle;
     }
@@ -75,7 +77,7 @@ export class SnakeEngine {
     const nextHeadPosition = this.getNextHeadPosition(direction);
 
     // Determine whether food will be eaten.
-    const eatsFood = this.isFoodCollision(nextHeadPosition, food);
+    const eatsFood = food !== null && this.isFoodCollision(nextHeadPosition, food);
 
     // Determine whether the tail will move this tick.
     const currentLength = this.snake.body.length + 1;
@@ -91,6 +93,7 @@ export class SnakeEngine {
     // Apply growth only after validating the movement.
     if (eatsFood) {
       this.growSnake();
+      this.foodEaten++;
     }
 
     // Move the snake.
@@ -143,6 +146,11 @@ export class SnakeEngine {
     this.segmentsCount = this.initialSegmentsCount;
     this.initializeSnake();
     this.inputController.reset();
+    this.foodEaten = 0;
+  }
+
+  public getFoodEaten(): number {
+    return this.foodEaten;
   }
 
   private die() {

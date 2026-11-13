@@ -8,11 +8,12 @@ export class GameLoop {
   private frameId: number | null = null; // requestAnimationFrame ID
   private fps: number = 0;
 
-  private onTick: (() => void); // callback for each loop iteration
+  private onTick: () => void; // callback for each loop iteration
 
+  public getFPS = () => this.fps;
 
   constructor(tickIntervalMs: number, onTick: () => void) {
-    if (!isFinite(tickIntervalMs) || tickIntervalMs <= 0) throw new Error("tickIntervalMs must be a finite number");
+    if (!isFinite(tickIntervalMs) || tickIntervalMs <= 0) throw new Error('tickIntervalMs must be a finite number');
     this.tickIntervalMs = tickIntervalMs < 50 ? 50 : tickIntervalMs;
     this.onTick = onTick;
   }
@@ -48,11 +49,11 @@ export class GameLoop {
     if (this.running) this.frameId = requestAnimationFrame(this.frame);
   };
 
-/**
- * Starts the game loop.
- * Initializes timing variables and begins the frame loop.
- * @returns 
- */
+  /**
+   * Starts the game loop.
+   * Initializes timing variables and begins the frame loop.
+   * @returns
+   */
   public start() {
     if (this.running) return;
     this.running = true;
