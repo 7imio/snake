@@ -17,9 +17,6 @@ const config: GridConfig = {
   gridHeight: 20,
 };
 
-// faster : 50 tickInterval
-// slower : 250 tickInterval
-
 const gameController = new GameController({ ...config, tickInterval: 250 });
 
 const Layout: React.FC = () => {

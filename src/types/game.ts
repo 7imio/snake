@@ -7,6 +7,7 @@ export interface Game {
   grid: GridConfig;
   snake: Snake;
   food: Coordinates | null;
+  colors?: ColorConfig;
 }
 
 export type GameSnapshot = {
@@ -14,6 +15,12 @@ export type GameSnapshot = {
   food: Coordinates | null;
   score: number;
   isRunning: boolean;
+};
+
+export type ColorConfig = {
+  snakeHeadColorHue: number;
+  snakeBodyColorHue: number;
+  foodColorHue: number;
 };
 
 export type OnGameUpdate = (snapshot: GameSnapshot, event?: TickEvent) => void;

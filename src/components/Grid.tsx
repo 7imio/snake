@@ -1,3 +1,6 @@
+import { getCellColor } from '../helpers/getCellColor';
+import { getCellType } from '../helpers/getCellType';
+import { useAppSelector } from '../store/hooks';
 import type { Coordinates } from '../types/coordinates';
 import type { Snake } from '../types/snake';
 import Cell from './Cell';
@@ -12,6 +15,9 @@ interface GridProps {
 const Grid: React.FC<GridProps> = ({ height, width, snake, food }) => {
   const cellCount = height * width;
 
+  const { colors } = useAppSelector((state) => state.game);
+  const { snakeHeadColorHue, snakeBodyColorHue, foodColorHue } = colors;
+
   return (
     <div className="flex flex-col justify-center items-center w-full h-full">
       <div
@@ -25,15 +31,10 @@ const Grid: React.FC<GridProps> = ({ height, width, snake, food }) => {
           const x = index % width;
           const y = Math.floor(index / width);
 
-          const isHead = snake.head.x === x && snake.head.y === y;
+          const cellType = getCellType(x, y, snake, food);
+          const cellColor = getCellColor(cellType, x, y, snake, { snakeHeadColorHue, snakeBodyColorHue, foodColorHue });
 
-          const isBody = snake.body.some((segment) => segment.x === x && segment.y === y);
-
-          const isFood = food !== null && food.x === x && food.y === y;
-
-          const cellColor = isHead ? 'lightgreen' : isBody ? 'green' : isFood ? 'red' : 'transparent';
-
-          return <Cell key={`${x}-${y}`} color={cellColor} />;
+          return <Cell key={`${x}-${y}`} color={cellColor} type={cellType} />;
         })}
       </div>
     </div>

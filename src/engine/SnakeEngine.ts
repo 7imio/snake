@@ -24,6 +24,8 @@ export class SnakeEngine {
 
   private foodEaten: number = 0;
 
+  private currentDirection: InputDirection = InputDirection.Right;
+
   constructor(config: GridConfig, inputController: InputController, initialSegmentsCount?: number) {
     this.gridWidth = config.gridWidth;
     this.gridHeight = config.gridHeight;
@@ -52,6 +54,7 @@ export class SnakeEngine {
       head: { ...this.snake.head },
       body: this.snake.body.map((segment) => ({ ...segment })),
       isAlive: this.snake.isAlive,
+      currentDirection: this.currentDirection,
     }; // deep copy of the snake
     return snake;
   }
@@ -68,7 +71,7 @@ export class SnakeEngine {
 
     // Get the next direction.
     const direction = this.inputController.consumeNextDirection();
-
+    this.currentDirection = direction ?? this.currentDirection;
     if (direction === null) {
       return TickEvent.Idle;
     }
