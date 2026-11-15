@@ -42,12 +42,12 @@ const gameSlice = createSlice({
     resetGame() {
       return initialState;
     },
-    incrementScore(state, action: PayloadAction<number>) {
-      state.score += action.payload;
+    setScore(state, action: PayloadAction<number>) {
+      state.score = action.payload;
     },
   },
 });
 
-export const { startGame, pauseGame, resumeGame, endGame, resetGame, incrementScore, menu } = gameSlice.actions;
+export const { startGame, pauseGame, resumeGame, endGame, resetGame, setScore, menu } = gameSlice.actions;
 
 export default gameSlice.reducer;

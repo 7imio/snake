@@ -1,6 +1,6 @@
 import Grid from '../Grid';
 import { useSelector, useDispatch } from 'react-redux';
-import { GameState, endGame, incrementScore, menu, resumeGame, startGame } from '../../store/slices/gameSlice';
+import { GameState, endGame, menu, resumeGame, setScore, startGame } from '../../store/slices/gameSlice';
 import type { RootState } from '../../store/store';
 import { useEffect, useState } from 'react';
 import type { GridConfig } from '../../types/GridConfiguration';
@@ -38,7 +38,7 @@ const Layout: React.FC = () => {
       }
       if (tickEvent === TickEvent.AteFood) {
         // handle score updates or other logic here
-        dispatch(incrementScore(1));
+        dispatch(setScore(snapshot.score));
       }
     });
     return () => gameController.setOnGameUpdate(null);

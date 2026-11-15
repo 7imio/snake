@@ -1,5 +1,7 @@
 export class GameLoop {
   private running: boolean = false;
+
+  private initialTickInterval: number;
   private tickIntervalMs: number; // Interval between ticks in milliseconds
   private accumulator: number = 0; // Time accumulated since the last tick in milliseconds
 
@@ -15,6 +17,7 @@ export class GameLoop {
   constructor(tickIntervalMs: number, onTick: () => void) {
     if (!isFinite(tickIntervalMs) || tickIntervalMs <= 0) throw new Error('tickIntervalMs must be a finite number');
     this.tickIntervalMs = tickIntervalMs < 50 ? 50 : tickIntervalMs;
+    this.initialTickInterval = this.tickIntervalMs;
     this.onTick = onTick;
   }
 
@@ -78,5 +81,17 @@ export class GameLoop {
 
   public isRunning() {
     return this.running;
+  }
+
+  public getInitialTickInterval() {
+    return this.initialTickInterval;
+  }
+
+  public setTickInterval(tickIntervalMs: number): void {
+    if (!Number.isFinite(tickIntervalMs) || tickIntervalMs <= 0) {
+      throw new Error('tickIntervalMs must be a positive finite number');
+    }
+
+    this.tickIntervalMs = Math.max(50, tickIntervalMs);
   }
 }

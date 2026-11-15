@@ -50,20 +50,25 @@ export class GameController {
     this.snakeEngine.reset();
     this.foodManager.reset();
     this.keyboardInput.detach();
+    this.gameLoop.setTickInterval(this.gameLoop.getInitialTickInterval());
   }
 
-  public updateTickInterval(tickInterval: number) {
-    this.gameLoop = new GameLoop(tickInterval, () => this.update());
+  public updateTickInterval(tickIntervalMs: number) {
+    this.gameLoop.setTickInterval(tickIntervalMs);
   }
+
   public update() {
     const food = this.foodManager.getFood();
     if (food === null) return;
     const tickEvent: TickEvent = this.snakeEngine.tick(food);
 
     switch (tickEvent) {
-      case TickEvent.AteFood:
+      case TickEvent.AteFood: {
         this.foodManager.spawnFood(this.snakeEngine.getSnake());
+        const newTickInterval = this.gameLoop.getInitialTickInterval() - this.snakeEngine.getFoodEaten() * 5;
+        this.updateTickInterval(Math.max(50, newTickInterval));
         break;
+      }
       case TickEvent.Died:
         this.stop();
         break;
