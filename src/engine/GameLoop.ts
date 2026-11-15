@@ -75,4 +75,8 @@ export class GameLoop {
   public getFps() {
     return this.fps;
   }
+
+  public isRunning() {
+    return this.running;
+  }
 }

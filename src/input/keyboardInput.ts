@@ -1,5 +1,5 @@
-import { type InputController } from "./InputController";
-import { InputDirection } from "./inputDirections";
+import { type InputController } from './InputController';
+import { InputDirection } from './inputDirections';
 
 export class KeyboardInput {
   private inputController: InputController | null = null;
@@ -62,6 +62,7 @@ export class KeyboardInput {
   private listenKeyPress(event: KeyboardEvent): void {
     if (!this.active || !this.inputController?.isActive()) return;
 
+    console.log('[KEYBOARD INPUT] Key pressed:', event.key);
     // Do not intercept browser shortcuts.
     if (event.ctrlKey || event.altKey || event.metaKey) return;
 

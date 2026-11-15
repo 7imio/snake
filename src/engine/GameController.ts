@@ -1,16 +1,10 @@
 import { InputController } from '../input/InputController';
-import type { Coordinates } from '../types/coordinates';
+import { KeyboardInput } from '../input/keyboardInput';
+import type { GameSnapshot, OnGameUpdate } from '../types/game';
 import type { GridConfig } from '../types/GridConfiguration';
-import type { Snake } from '../types/snake';
 import { FoodManager } from './FoodManager';
 import { GameLoop } from './GameLoop';
 import { SnakeEngine, TickEvent } from './SnakeEngine';
-
-export type GameSnapshot = {
-  snake: Snake;
-  food: Coordinates | null;
-  score: number;
-};
 
 export interface GameControllerConfig extends GridConfig {
   tickInterval: number;
@@ -20,36 +14,47 @@ export class GameController {
   private snakeEngine: SnakeEngine;
   private foodManager: FoodManager;
   private inputController: InputController;
+  private keyboardInput: KeyboardInput;
   private gameLoop: GameLoop;
+
+  private onGameUpdate?: OnGameUpdate | null = null;
 
   constructor(config: GameControllerConfig) {
     this.inputController = new InputController();
     this.snakeEngine = new SnakeEngine(config, this.inputController);
     this.foodManager = new FoodManager(config);
     this.gameLoop = new GameLoop(config.tickInterval, () => this.update());
+    this.keyboardInput = new KeyboardInput();
   }
 
-  public start() {
-    this.gameLoop.stop();
-
+  public start = () => {
+    this.reset();
     this.snakeEngine.start();
     this.foodManager.spawnFood(this.snakeEngine.getSnake());
     this.gameLoop.start();
-  }
+    this.keyboardInput.attach(this.inputController);
+  };
   public pause() {
     this.inputController.pause();
     this.gameLoop.stop();
+    this.keyboardInput.detach();
   }
   public resume() {
     this.inputController.resume();
     this.gameLoop.start();
+    this.keyboardInput.attach(this.inputController);
   }
   public reset() {
+    this.gameLoop.stop();
     this.inputController.reset();
     this.snakeEngine.reset();
     this.foodManager.reset();
+    this.keyboardInput.detach();
   }
 
+  public updateTickInterval(tickInterval: number) {
+    this.gameLoop = new GameLoop(tickInterval, () => this.update());
+  }
   public update() {
     const food = this.foodManager.getFood();
     if (food === null) return;
@@ -60,11 +65,14 @@ export class GameController {
         this.foodManager.spawnFood(this.snakeEngine.getSnake());
         break;
       case TickEvent.Died:
-        this.gameLoop.stop();
+        this.stop();
         break;
       default:
         break;
     }
+    const snapshot = this.getSnapshot();
+
+    this.onGameUpdate?.(snapshot, tickEvent);
   }
 
   /**
@@ -76,12 +84,22 @@ export class GameController {
       snake: this.snakeEngine.getSnake(),
       food: this.foodManager.getFood(),
       score: this.snakeEngine.getFoodEaten(),
+      isRunning: this.gameLoop.isRunning(),
     };
   }
-  public stop() {}
+
+  public stop() {
+    this.gameLoop.stop();
+    this.keyboardInput.detach();
+    this.inputController.pause();
+  }
 
   public getFPS(): number {
     const fps = this.gameLoop.getFPS();
     return fps;
+  }
+
+  public setOnGameUpdate(callback: OnGameUpdate | null) {
+    this.onGameUpdate = callback;
   }
 }
