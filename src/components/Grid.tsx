@@ -1,5 +1,6 @@
 import { getCellColor } from '../helpers/getCellColor';
-import { getCellType } from '../helpers/getCellType';
+import { CellType, getCellType } from '../helpers/getCellType';
+import { getHeadDirection } from '../helpers/getHeadDirection';
 import { useAppSelector } from '../store/hooks';
 import type { Coordinates } from '../types/coordinates';
 import type { Snake } from '../types/snake';
@@ -34,7 +35,15 @@ const Grid: React.FC<GridProps> = ({ height, width, snake, food }) => {
           const cellType = getCellType(x, y, snake, food);
           const cellColor = getCellColor(cellType, x, y, snake, { snakeHeadColorHue, snakeBodyColorHue, foodColorHue });
 
-          return <Cell key={`${x}-${y}`} color={cellColor} type={cellType} />;
+          return (
+            <Cell
+              key={`${x}-${y}`}
+              color={cellColor}
+              type={cellType}
+
+              headDirection={cellType === CellType.SnakeHead ? getHeadDirection(snake.currentDirection) : undefined}
+            />
+          );
         })}
       </div>
     </div>

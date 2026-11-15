@@ -1,6 +1,86 @@
 @import "tailwindcss";
 
 body {
-
   background-color: #111111;
+}
+
+.snake-head {
+  position: relative;
+}
+
+.snake-head::before,
+.snake-head::after {
+  content: "";
+  position: absolute;
+
+  width: 4px;
+  height: 4px;
+
+  background-color: #101010;
+  border-radius: 50%;
+}
+
+/* Looking up */
+.snake-head-up::before {
+  top: 4px;
+  left: 5px;
+}
+
+.snake-head-up::after {
+  top: 4px;
+  right: 5px;
+}
+
+/* Looking down */
+.snake-head-down::before {
+  bottom: 4px;
+  left: 5px;
+}
+
+.snake-head-down::after {
+  bottom: 4px;
+  right: 5px;
+}
+
+/* Looking left */
+.snake-head-left::before {
+  top: 5px;
+  left: 4px;
+}
+
+.snake-head-left::after {
+  bottom: 5px;
+  left: 4px;
+}
+
+/* Looking right */
+.snake-head-right::before {
+  top: 5px;
+  right: 4px;
+}
+
+.snake-head-right::after {
+  bottom: 5px;
+  right: 4px;
+}
+
+.food {
+  position: relative;
+  border-radius: 45%;
+}
+
+.food::before {
+  content: "";
+  position: absolute;
+
+  width: 3px;
+  height: 7px;
+
+  top: -5px;
+  left: 50%;
+
+  background-color: #79552f;
+  border-radius: 2px;
+
+  transform: translateX(-50%) rotate(25deg);
 }
