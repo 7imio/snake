@@ -1,5 +1,5 @@
 import { type InputController } from './InputController';
-import { InputDirection } from './inputDirections';
+import { InputDirection } from './inputs';
 
 export class KeyboardInput {
   private inputController: InputController | null = null;
@@ -18,13 +18,6 @@ export class KeyboardInput {
     q: InputDirection.Left,
     a: InputDirection.Left,
     d: InputDirection.Right,
-
-    // Alternative layout
-    o: InputDirection.Up,
-    l: InputDirection.Down,
-    k: InputDirection.Left,
-    ';': InputDirection.Right,
-    m: InputDirection.Right,
   };
 
   private active: boolean = false;
@@ -62,7 +55,6 @@ export class KeyboardInput {
   private listenKeyPress(event: KeyboardEvent): void {
     if (!this.active || !this.inputController?.isActive()) return;
 
-    console.log('[KEYBOARD INPUT] Key pressed:', event.key);
     // Do not intercept browser shortcuts.
     if (event.ctrlKey || event.altKey || event.metaKey) return;
 

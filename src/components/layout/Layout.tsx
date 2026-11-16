@@ -1,6 +1,6 @@
 import Grid from '../Grid';
 import { useSelector, useDispatch } from 'react-redux';
-import { GameState, endGame, menu, resumeGame, setScore, startGame } from '../../store/slices/gameSlice';
+import { GameState, endGame, menu, pauseGame, resumeGame, setScore, startGame } from '../../store/slices/gameSlice';
 import type { RootState } from '../../store/store';
 import { useEffect, useState } from 'react';
 import type { GridConfig } from '../../types/GridConfiguration';
@@ -11,6 +11,7 @@ import PauseOverlay from '../overlays/PauseOverlay';
 import { HeaderLayout } from './HeaderLayout';
 import { TickEvent } from '../../engine/SnakeEngine';
 import type { GameSnapshot } from '../../types/game';
+import { UIKeyboardInput, type UIKeyboardCallbacks } from '../../input/uiKeyboardInput';
 
 const config: GridConfig = {
   gridWidth: 30,
@@ -27,6 +28,35 @@ const Layout: React.FC = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    const uiCallbacks: UIKeyboardCallbacks = {
+      onTogglePause: () => {
+        if (gameState === GameState.Running) {
+          dispatch(pauseGame());
+        }
+        if (gameState === GameState.Paused) {
+          dispatch(resumeGame());
+        }
+      },
+
+      onOpenMenu: () => {
+        dispatch(menu());
+      },
+
+      onNavigate: (direction: -1 | 1) => {
+        if (gameState === GameState.Running) return;
+        console.log('Navigating:', direction);
+        // handle navigation if needed
+      },
+    };
+
+    const uiKeyboardInput = new UIKeyboardInput(uiCallbacks);
+    uiKeyboardInput.attach();
+    return () => {
+      uiKeyboardInput.detach();
+    };
+  }, [dispatch, gameState]);
+
+  useEffect(() => {
     gameController.setOnGameUpdate((snapshot: GameSnapshot, tickEvent?: TickEvent) => {
       // Handle game update logic here
       setSnapshot(snapshot);
@@ -38,7 +68,9 @@ const Layout: React.FC = () => {
         dispatch(setScore(snapshot.score));
       }
     });
-    return () => gameController.setOnGameUpdate(null);
+    return () => {
+      gameController.setOnGameUpdate(null);
+    };
   }, [dispatch]);
 
   useEffect(() => {

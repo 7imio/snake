@@ -1,4 +1,4 @@
-import { InputDirection } from './inputDirections';
+import { InputDirection } from './inputs';
 
 export class InputController {
   private currentDirection: InputDirection | null = null;

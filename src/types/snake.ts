@@ -1,4 +1,4 @@
-import type { InputDirection } from '../input/inputDirections';
+import type { InputDirection } from '../input/inputs';
 import type { Coordinates } from './coordinates';
 
 export interface Snake {

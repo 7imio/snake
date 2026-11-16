@@ -15,7 +15,7 @@ const MenuOverlay: React.FC<MenuOverlayProps> = ({ onStart, onResume, isStarted 
           {isStarted ? 'Restart Game' : 'Start Game'}
         </Button>
 
-        <Button variant="secondary" onClick={onResume}>
+        <Button variant="secondary" onClick={onResume} disabled={!isStarted}>
           Resume Game
         </Button>
       </div>

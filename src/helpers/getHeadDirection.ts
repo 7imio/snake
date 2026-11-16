@@ -1,4 +1,4 @@
-import { InputDirection } from '../input/inputDirections';
+import { InputDirection } from '../input/inputs';
 
 export const getHeadDirection = (inputDirection?: InputDirection): string => {
   switch (inputDirection) {

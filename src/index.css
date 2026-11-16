@@ -142,6 +142,15 @@
   box-shadow: 0 5px 0 #651725;
 }
 
+.game-button:focus-visible {
+  outline: 3px solid var(--ui-accent);
+  outline-offset: 4px;
+
+  box-shadow:
+    0 0 0 2px rgba(0, 0, 0, 0.6),
+    0 0 20px var(--ui-accent);
+}
+
 @media (hover: hover) {
   .game-button:hover:not(:disabled) {
     transform: translateY(-2px);
