@@ -9,13 +9,18 @@ export const HeaderLayout: React.FC = () => {
   const { score } = useSelector((state: RootState) => state.game);
 
   return (
-    <div className="gap-2 flex justify-between p-2">
-      <div className="flex-1">
-        <Button onClick={() => dispatch(pauseGame())}>Pause Game</Button>
-        <Button onClick={() => dispatch(menu())}>Menu</Button>
+    <div className="flex flex-col">
+      <div className="flex z-100 p-4 align-items-center justify-center">
+        <p className="text-white text-3xl">SNAKKIDY SNEKKY SNEK</p>
       </div>
-      <div className="flex-1 pr-10 text-right text-white">
-        <p>Score: {score}</p>
+      <div className="gap-2 flex justify-between p-2">
+        <div className="flex-1">
+          <Button onClick={() => dispatch(pauseGame())}>Pause Game</Button>
+          <Button onClick={() => dispatch(menu())}>Menu</Button>
+        </div>
+        <div className="flex-1 pr-10 text-right text-white">
+          <p>Score: {score}</p>
+        </div>
       </div>
     </div>
   );

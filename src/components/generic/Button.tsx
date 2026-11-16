@@ -1,8 +1,24 @@
-const Button: React.FC<{ children: React.ReactNode; onClick?: () => void }> = ({ children, onClick }) => {
+interface ButtonProps {
+  children: React.ReactNode;
+  onClick?: () => void;
+  className?: string;
+  variant?: 'primary' | 'secondary' | 'danger';
+  disabled?: boolean;
+}
+
+const Button: React.FC<ButtonProps> = ({ children, onClick, className, variant = 'secondary', disabled }) => {
+  /**
+   *  TODO :
+   * Update to use clsx / tailwind-merge for className merging
+   *
+   * */
+
   return (
     <button
-      className="border-solid rounded bg-neutral-700 text-amber-200 px-4 py-2 hover:bg-neutral-600 border-2 transition ease-in"
+      type="button"
+      className={`game-button game-button--${variant} ${className ?? ''}`}
       onClick={onClick}
+      disabled={disabled}
     >
       {children}
     </button>

@@ -1,7 +1,18 @@
-const Modal: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+interface ModalProps {
+  children: React.ReactNode;
+  title?: string;
+}
+
+const Modal: React.FC<ModalProps> = ({ children, title }) => {
   return (
-    <div className="modal fixed z-50 top-0 left-0 w-full h-full flex items-center justify-center bg-black/50 backdrop-blur-sm">
-      <div className="modal-content bg-neutral-700 p-4 rounded gap-1 text-amber-100">{children}</div>
+    <div className="modal-backdrop">
+      <section className="modal-panel" role="dialog" aria-modal="true" aria-label={title ?? 'Game menu'}>
+        <p className="modal-kicker">SNAKKIDY SNEKKY SNEK</p>
+
+        {title && <h2 className="modal-title">{title}</h2>}
+
+        {children}
+      </section>
     </div>
   );
 };

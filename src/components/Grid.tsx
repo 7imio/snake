@@ -20,9 +20,9 @@ const Grid: React.FC<GridProps> = ({ height, width, snake, food }) => {
   const { snakeHeadColorHue, snakeBodyColorHue, foodColorHue } = colors;
 
   return (
-    <div className="flex flex-col justify-center items-center w-full h-full">
+    <div className="board-frame">
       <div
-        className="grid w-fit gap-0 p-1"
+        className="game-board grid w-fit gap-0"
         style={{
           gridTemplateColumns: `repeat(${width}, max-content)`,
           gridTemplateRows: `repeat(${height}, max-content)`,

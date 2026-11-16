@@ -39,10 +39,10 @@ export const getCellColor = (
       return `hsl(${foodColorHue}, 100%, 50%)`; // Food color
     }
     case CellType.Empty: {
-      return `hsl(${snakeHeadColorHue}, 0%, 0%)`; // Empty cell color
+      return `transparent`; // Empty cell color
     }
     default:
-      return `hsl(0, 0%, 0%)`;
+      return `transparent`;
   }
 };
 

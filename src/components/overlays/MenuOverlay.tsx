@@ -9,12 +9,16 @@ interface MenuOverlayProps {
 
 const MenuOverlay: React.FC<MenuOverlayProps> = ({ onStart, onResume, isStarted }) => {
   return (
-    <Modal>
-      <div className="flex flex-col items-center justify-center gap-4">
-        <p>Menu</p>
+    <Modal title="Menu">
+      <div className="modal-actions">
+        <Button variant="primary" onClick={onStart}>
+          {isStarted ? 'Restart Game' : 'Start Game'}
+        </Button>
+
+        <Button variant="secondary" onClick={onResume}>
+          Resume Game
+        </Button>
       </div>
-      <Button onClick={onStart}>{isStarted ? 'Restart Game' : 'Start Game'}</Button>
-      <Button onClick={onResume}>Resume game</Button>
     </Modal>
   );
 };

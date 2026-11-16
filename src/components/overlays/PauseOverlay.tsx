@@ -8,12 +8,16 @@ interface PauseOverlayProps {
 
 const PauseOverlay: React.FC<PauseOverlayProps> = ({ onResume, onMenu }) => {
   return (
-    <Modal>
-      <div className="flex flex-col items-center justify-center gap-4">
-        <p>Paused</p>
+    <Modal title="PAUSED">
+      <div className="modal-actions">
+        <Button variant="primary" onClick={onResume}>
+          Resume Game
+        </Button>
+
+        <Button variant="secondary" onClick={onMenu}>
+          Back to Menu
+        </Button>
       </div>
-      <Button onClick={onResume}>Resume Game</Button>
-      <Button onClick={onMenu}>Menu</Button>
     </Modal>
   );
 };

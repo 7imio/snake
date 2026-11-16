@@ -1,7 +1,183 @@
 @import "tailwindcss";
 
+:root {
+  --ui-accent: #79f59e;
+  --ui-accent-text: #092718;
+  --ui-border: #34586a;
+  --ui-text: #e9f5fa;
+  --cell-size: 24px;
+  --grid-line: rgba(120, 205, 225, 0.08);
+}
+
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+
+  display: grid;
+  place-items: center;
+  padding: 24px;
+
+  background: rgba(4, 10, 18, 0.72);
+  backdrop-filter: blur(10px);
+}
+
+.modal-panel {
+  width: min(100%, 420px);
+  padding: 32px;
+
+  color: var(--ui-text);
+  text-align: center;
+
+  background: linear-gradient(
+    145deg,
+    #203746 0%,
+    #0d1925 100%
+  );
+
+  border: 1px solid var(--ui-border);
+  border-radius: 20px;
+
+  box-shadow:
+    0 0 45px rgba(41, 151, 185, 0.16),
+    0 25px 70px rgba(0, 0, 0, 0.55);
+
+  animation: modal-enter 220ms ease-out;
+}
+
+.modal-kicker {
+  color: #82bdca;
+  font-size: 0.65rem;
+  letter-spacing: 0.22em;
+  font-weight: 700;
+}
+
+.modal-title {
+  margin: 12px 0 24px;
+
+  font-size: 2rem;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+}
+
+.modal-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.modal-actions .game-button {
+  width: 100%;
+}
+
+@keyframes modal-enter {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.96);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .modal-panel {
+    animation: none;
+  }
+
+  .game-button {
+    transition: none;
+  }
+}
+
+/* Base button */
+.game-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  min-height: 46px;
+  padding: 12px 22px;
+
+  border: 1px solid transparent;
+  border-radius: 12px;
+
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+
+  cursor: pointer;
+
+  transition:
+    transform 150ms ease,
+    box-shadow 150ms ease,
+    background-color 150ms ease;
+}
+
+/* Main action */
+.game-button--primary {
+  color: var(--ui-accent-text);
+  background: var(--ui-accent);
+
+  box-shadow: 0 5px 0 #31814b;
+}
+
+/* Secondary action */
+.game-button--secondary {
+  color: var(--ui-text);
+  background: #172d3d;
+
+  border-color: var(--ui-border);
+  box-shadow: 0 4px 0 #09141d;
+}
+
+/* Destructive action */
+.game-button--danger {
+  color: #fff;
+  background: #a83244;
+
+  box-shadow: 0 5px 0 #651725;
+}
+
+@media (hover: hover) {
+  .game-button:hover:not(:disabled) {
+    transform: translateY(-2px);
+    filter: brightness(1.1);
+  }
+}
+
+.game-button:active:not(:disabled) {
+  transform: translateY(3px);
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.45);
+}
+
+.game-button:focus-visible {
+  outline: 3px solid #fff;
+  outline-offset: 3px;
+}
+
+.game-button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
 body {
-  background-color: #111111;
+  min-height: 100vh;
+
+  background:
+    radial-gradient(
+      ellipse at 50% 35%,
+      rgba(25, 95, 115, 0.22),
+      transparent 65%
+    ),
+    linear-gradient(
+      160deg,
+      #111a25 0%,
+      #080b12 100%
+    );
 }
 
 .snake-head {
@@ -17,7 +193,7 @@ body {
   height: 4px;
 
   background-color: #101010;
-  border-radius: 50%;
+  /* border-radius: 50%; */
 }
 
 /* Looking up */
@@ -66,7 +242,7 @@ body {
 
 .food {
   position: relative;
-  border-radius: 45%;
+  /* border-radius: 45%; */
 }
 
 .food::before {
@@ -83,4 +259,47 @@ body {
   border-radius: 2px;
 
   transform: translateX(-50%) rotate(25deg);
+}
+
+.game-board {
+
+
+  background-color: #0d1b24;
+
+  background-image:
+    linear-gradient(
+      to right,
+      var(--grid-line) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      to bottom,
+      var(--grid-line) 1px,
+      transparent 1px
+    );
+
+  background-size:
+    var(--cell-size) var(--cell-size);
+}
+
+.cell {
+  width: var(--cell-size);
+  height: var(--cell-size);
+  border: none;
+  border-radius: 0;
+}
+.board-frame {
+  padding: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #09131c;
+
+  border: 1px solid rgba(120, 205, 225, 0.25);
+  border-radius: 14px;
+
+  box-shadow:
+    0 0 0 1px rgba(120, 205, 225, 0.06),
+    0 0 35px rgba(25, 130, 160, 0.12),
+    0 18px 45px rgba(0, 0, 0, 0.45);
 }

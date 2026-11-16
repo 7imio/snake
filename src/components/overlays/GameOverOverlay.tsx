@@ -11,12 +11,15 @@ const GameOverOverlay: React.FC<GameOverOverlayProps> = ({ onRestart }) => {
   const dispatch = useDispatch();
 
   return (
-    <Modal>
-      <div className="flex flex-col items-center justify-center gap-4">
-        <p>Game Over</p>
+    <Modal title="Game Over">
+      <div className="modal-actions">
+        <Button variant="primary" onClick={() => dispatch(menu())}>
+          Menu
+        </Button>
+        <Button variant="secondary" onClick={onRestart}>
+          Restart Game
+        </Button>
       </div>
-      <Button onClick={() => dispatch(menu())}>Menu</Button>
-      <Button onClick={onRestart}>Restart Game</Button>
     </Modal>
   );
 };
